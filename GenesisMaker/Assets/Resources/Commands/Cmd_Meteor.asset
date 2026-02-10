@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a73f552ba5ff564e9bfc67a2b8ec77d, type: 3}
+  m_Name: Cmd_Meteor
+  m_EditorClassIdentifier: 
+  CommandName: "\u9695\u77F3\u843D\u4E0B"
+  Descripyion: "\u30EA\u30BB\u30C3\u30C8\u7528\u3002\u5168\u3066\u3092\u7834\u58CA\u3057\u3001\u5730\u5F62\u3092\u5909\u3048\u308B\uFF08\u96A0\u3057\u8981\u7D20\uFF09\u3002"
+  WaterChange: -30
+  TempChange: 50
+  NatureChange: -50
+  CivChange: -50

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a73f552ba5ff564e9bfc67a2b8ec77d, type: 3}
+  m_Name: Cmd_Wind
+  m_EditorClassIdentifier: 
+  CommandName: "\u6625\u306E\u98A8"
+  Descripyion: "\u5FAE\u8ABF\u6574\u7528\u3002\u5C11\u3057\u6C17\u6E29\u3092\u4E0B\u3052\u3001\u7A2E\u3092\u904B\u3076\u3002"
+  WaterChange: 0
+  TempChange: -5
+  NatureChange: 5
+  CivChange: 0
