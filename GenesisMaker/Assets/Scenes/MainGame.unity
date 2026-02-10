@@ -181,8 +181,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 12c27379b39e44346813b13ec333d516, type: 2}
+  m_sharedMaterial: {fileID: 21254508783018724, guid: 12c27379b39e44346813b13ec333d516, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -373,6 +373,7 @@ GameObject:
   - component: {fileID: 259392482}
   - component: {fileID: 259392481}
   - component: {fileID: 259392480}
+  - component: {fileID: 259392483}
   m_Layer: 5
   m_Name: Button_Cmd2
   m_TagString: Untagged
@@ -482,6 +483,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 259392478}
   m_CullTransparentMesh: 1
+--- !u!114 &259392483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259392478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a443a286ffcd7c4a84e0fa876f5f744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCommandData: {fileID: 11400000, guid: ec3f74eaeb602ba4eadf3784690f865b, type: 2}
+  buttonLabel: {fileID: 1288851380}
 --- !u!1 &313871823
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +509,7 @@ GameObject:
   - component: {fileID: 313871826}
   - component: {fileID: 313871825}
   m_Layer: 5
-  m_Name: Text_Score
+  m_Name: Text_Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -541,8 +556,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 12c27379b39e44346813b13ec333d516, type: 2}
+  m_sharedMaterial: {fileID: 21254508783018724, guid: 12c27379b39e44346813b13ec333d516, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -713,8 +728,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 12c27379b39e44346813b13ec333d516, type: 2}
+  m_sharedMaterial: {fileID: 21254508783018724, guid: 12c27379b39e44346813b13ec333d516, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -939,8 +954,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 12c27379b39e44346813b13ec333d516, type: 2}
+  m_sharedMaterial: {fileID: 21254508783018724, guid: 12c27379b39e44346813b13ec333d516, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1026,6 +1041,7 @@ GameObject:
   - component: {fileID: 1302367352}
   - component: {fileID: 1302367351}
   - component: {fileID: 1302367350}
+  - component: {fileID: 1302367353}
   m_Layer: 5
   m_Name: Button_Cmd1
   m_TagString: Untagged
@@ -1135,7 +1151,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1302367348}
   m_CullTransparentMesh: 1
---- !u!1 &1310851364
+--- !u!114 &1302367353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302367348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a443a286ffcd7c4a84e0fa876f5f744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCommandData: {fileID: 11400000, guid: 5d85022e5f7336e4a9ed200756ad5444, type: 2}
+  buttonLabel: {fileID: 192580173}
+--- !u!1 &1374278133
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1143,8 +1173,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1310851366}
-  - component: {fileID: 1310851365}
+  - component: {fileID: 1374278135}
+  - component: {fileID: 1374278134}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1152,25 +1182,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1310851365
+--- !u!114 &1374278134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310851364}
+  m_GameObject: {fileID: 1374278133}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3cc0dde4e5c20449914901db6e8f806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1310851366
+  currentTurn: 1
+  maxTurn: 10
+  scoreWater: 0
+  scoreTemp: 0
+  scoreNature: 0
+  scoreCiv: 0
+  turnText: {fileID: 454091526}
+  statusText: {fileID: 313871825}
+--- !u!4 &1374278135
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310851364}
+  m_GameObject: {fileID: 1374278133}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -1275,8 +1313,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 12c27379b39e44346813b13ec333d516, type: 2}
+  m_sharedMaterial: {fileID: 21254508783018724, guid: 12c27379b39e44346813b13ec333d516, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1580,6 +1618,7 @@ GameObject:
   - component: {fileID: 1946567503}
   - component: {fileID: 1946567502}
   - component: {fileID: 1946567501}
+  - component: {fileID: 1946567504}
   m_Layer: 5
   m_Name: Button_Cmd3
   m_TagString: Untagged
@@ -1689,6 +1728,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946567499}
   m_CullTransparentMesh: 1
+--- !u!114 &1946567504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1946567499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a443a286ffcd7c4a84e0fa876f5f744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCommandData: {fileID: 11400000, guid: ea6b05b7c30f8f14e93cc68498cdaaeb, type: 2}
+  buttonLabel: {fileID: 1590380653}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1696,4 +1749,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 232848505}
   - {fileID: 1890049916}
-  - {fileID: 1310851366}
+  - {fileID: 1374278135}

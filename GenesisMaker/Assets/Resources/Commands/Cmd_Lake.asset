@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a73f552ba5ff564e9bfc67a2b8ec77d, type: 3}
   m_Name: Cmd_Lake
   m_EditorClassIdentifier: 
-  CommandName: "\u6E56\u306E\u5275\u9020"
-  Descripyion: "\u6C34\u3092\u5927\u91CF\u306B\u78BA\u4FDD\u3002\u6587\u660E\u767A\u751F\u306E\u57FA\u76E4\u306B\u306A\u308B\u3002"
-  WaterChange: 40
-  TempChange: -10
-  NatureChange: 10
-  CivChange: 5
+  commandName: "\u6E56\u306E\u5275\u9020"
+  descripyion: "\u6C34\u3092\u5927\u91CF\u306B\u78BA\u4FDD\u3002\u6587\u660E\u767A\u751F\u306E\u57FA\u76E4\u306B\u306A\u308B\u3002"
+  waterChange: 40
+  tempChange: -10
+  natureChange: 10
+  civChange: 5

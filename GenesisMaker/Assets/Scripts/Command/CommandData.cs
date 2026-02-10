@@ -8,16 +8,16 @@ using UnityEngine;
 public class CommandData : ScriptableObject
 {
     [Header("コマンドの名前")]
-    public string CommandName;
+    public string commandName;
     [Header("コマンドの説明")]
-    [TextArea] public string Descripyion;
+    [TextArea] public string descripyion;
 
     [Header("水分（＋で潤う、－で乾燥）")]
-    public int WaterChange;
+    public int waterChange;
     [Header("気温（＋で温暖、－で寒冷）")]
-    public int TempChange;
+    public int tempChange;
     [Header("自然（＋で緑化、－で荒廃）")]
-    public int NatureChange;
+    public int natureChange;
     [Header("文明（＋で発展、－で衰退）")]
-    public int CivChange;
+    public int civChange;
 }

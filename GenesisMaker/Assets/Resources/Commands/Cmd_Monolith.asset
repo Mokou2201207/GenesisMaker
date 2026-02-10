@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a73f552ba5ff564e9bfc67a2b8ec77d, type: 3}
   m_Name: Cmd_Monolith
   m_EditorClassIdentifier: 
-  CommandName: "\u77E5\u6075\u306E\u77F3"
-  Descripyion: "\u6587\u660E\u3092\u4E00\u6C17\u306B\u52A0\u901F\u3055\u305B\u308B\u30AA\u30FC\u30D1\u30FC\u30C4\u3002"
-  WaterChange: 0
-  TempChange: 0
-  NatureChange: -5
-  CivChange: 30
+  commandName: "\u77E5\u6075\u306E\u77F3"
+  descripyion: "\u6587\u660E\u3092\u4E00\u6C17\u306B\u52A0\u901F\u3055\u305B\u308B\u30AA\u30FC\u30D1\u30FC\u30C4\u3002"
+  waterChange: 0
+  tempChange: 0
+  natureChange: -5
+  civChange: 30

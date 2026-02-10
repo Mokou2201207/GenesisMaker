@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a73f552ba5ff564e9bfc67a2b8ec77d, type: 3}
   m_Name: Cmd_Thunder
   m_EditorClassIdentifier: 
-  CommandName: "\u96F7\u306E\u88C1\u304D"
-  Descripyion: "\u7834\u58CA\u30B3\u30DE\u30F3\u30C9\u3002\u7A00\u306B\u300C\u706B\u300D\u3092\u751F\u3080\u304D\u3063\u304B\u3051\u306B\u3002"
-  WaterChange: 0
-  TempChange: 5
-  NatureChange: -10
-  CivChange: -10
+  commandName: "\u96F7\u306E\u88C1\u304D"
+  descripyion: "\u7834\u58CA\u30B3\u30DE\u30F3\u30C9\u3002\u7A00\u306B\u300C\u706B\u300D\u3092\u751F\u3080\u304D\u3063\u304B\u3051\u306B\u3002"
+  waterChange: 0
+  tempChange: 5
+  natureChange: -10
+  civChange: -10
