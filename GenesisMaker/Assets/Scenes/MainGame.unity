@@ -1202,6 +1202,7 @@ MonoBehaviour:
   scoreCiv: 0
   turnText: {fileID: 454091526}
   statusText: {fileID: 313871825}
+  visualizer: {fileID: 1603008141}
 --- !u!4 &1374278135
 Transform:
   m_ObjectHideFlags: 0
@@ -1399,6 +1400,7 @@ GameObject:
   - component: {fileID: 1603008138}
   - component: {fileID: 1603008140}
   - component: {fileID: 1603008139}
+  - component: {fileID: 1603008141}
   m_Layer: 5
   m_Name: MainImg_Planet
   m_TagString: Untagged
@@ -1463,6 +1465,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603008137}
   m_CullTransparentMesh: 1
+--- !u!114 &1603008141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603008137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 367e79a45fcac714f8c3ac7852a079fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetImage: {fileID: 1603008139}
+  stage0_Wasteland: {fileID: 21300000, guid: a71ad1eda407530458e481a2bee973cc, type: 3}
+  stage1_Water: {fileID: 21300000, guid: 0464ede3a85d30346a9c697f2acb4c10, type: 3}
+  stage2_Nature: {fileID: 21300000, guid: 56b7130a0a7e27648bc09973b8e1c9cf, type: 3}
+  stage3_Civil: {fileID: 21300000, guid: 7c4d2bd84ef205444ae57a1b9682895f, type: 3}
 --- !u!1 &1743258498
 GameObject:
   m_ObjectHideFlags: 0

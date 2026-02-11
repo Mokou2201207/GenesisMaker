@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private TextMeshProUGUI statusText;
 
+    [Header("PlanetVisualizerの参照")]
+    public PlanetVisualizer visualizer;
+
     /// <summary>
     /// シングルトンを設定
     /// </summary>
@@ -68,6 +71,12 @@ public class GameManager : MonoBehaviour
 
         //ターンの経過
         currentTurn++;
+
+        //画像の更新処理
+        if (visualizer != null)
+        {
+            visualizer.UpdateVisuals(scoreWater, scoreNature, scoreCiv);
+        }
 
         //画面更新
         UpdateUI();
