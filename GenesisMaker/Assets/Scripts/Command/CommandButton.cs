@@ -19,14 +19,23 @@ public class CommandButton : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //開始時ボタンの名前を変更
-        if (myCommandData != null && buttonLabel != null)
+        // ボタンコンポーネントを取得し、クリック時の動作を登録する
+        GetComponent<Button>().onClick.AddListener(OnClickButton);
+    }
+
+    /// <summary>
+    /// コマンドの名前やステータスが変わる処理
+    /// </summary>
+    /// <param name="newDate">コマンドのステータス</param>
+    public void SetCommand(CommandData newData)
+    {
+        myCommandData = newData;
+
+        // 見た目の更新
+        if (buttonLabel != null && myCommandData != null)
         {
             buttonLabel.text = myCommandData.commandName;
         }
-
-        // ボタンコンポーネントを取得し、クリック時の動作を登録する
-        GetComponent<Button>().onClick.AddListener(OnClickButton);
     }
 
     /// <summary>

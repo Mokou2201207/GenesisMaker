@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 /// <summary>
 /// 現在の世界のステータスのマネージャー
 /// </summary>
@@ -30,6 +31,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private TextMeshProUGUI statusText;
 
+    //システムコマンド
+    [Header("三つあるボタンをアタッチ")]
+    [SerializeField] private CommandButton[] commandButtons;
+    [Header("コマンドのデータを全てアタッチ")]
+    [SerializeField] private List<CommandData> allCommandDatabase;
+
+    //リザルト用のUI
+    [Header("Panel_Resultをアタッチ")]
+    [SerializeField] private GameObject resultPanel;
+    [Header("ランクのText")]
+    [SerializeField] private TextMeshProUGUI rankText;
+    [Header("コメントのText")]
+    [SerializeField] private TextMeshProUGUI commentText; 
+
     [Header("PlanetVisualizerの参照")]
     public PlanetVisualizer visualizer;
 
@@ -38,6 +53,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        //ゲーム開始時に最初のカードを配る
+        SetNextCommands();
         if (Instance == null) Instance = this;
     }
 
@@ -48,6 +65,15 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateUI();
+    }
+
+    /// <summary>
+    /// リトライボタンから呼ぶ関数
+    /// </summary>
+    public void OnRetryButton()
+    {
+        // 現在のシーンを読み込み直す（＝リセット）
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     /// <summary>
@@ -72,6 +98,12 @@ public class GameManager : MonoBehaviour
         //ターンの経過
         currentTurn++;
 
+        //ターンが進んだら新しいカードを配る
+        if (currentTurn <= maxTurn)
+        {
+            SetNextCommands();
+        }
+
         //画像の更新処理
         if (visualizer != null)
         {
@@ -81,11 +113,28 @@ public class GameManager : MonoBehaviour
         //画面更新
         UpdateUI();
 
-        // 4. ゲーム終了判定
+        //ゲーム終了判定
         if (currentTurn > maxTurn)
         {
-            Debug.Log("<color=yellow>ゲーム終了！リザルト画面へ！</color>");
-            // ここにリザルト遷移処理を後で書く
+            //結果画面をここに出す
+            ShowResult();
+        }
+    }
+
+    /// <summary>
+    /// コマンドをランダムにしてボタンにセット
+    /// </summary>
+    void SetNextCommands()
+    {
+        // ボタンの数だけ繰り返す
+        for (int i = 0; i < commandButtons.Length; i++)
+        {
+            //ランダムに1枚選ぶ
+            int randomIndex = Random.Range(0, allCommandDatabase.Count);
+            CommandData pickedData = allCommandDatabase[randomIndex];
+
+            //ボタンにデータを渡す
+            commandButtons[i].SetCommand(pickedData);
         }
     }
 
@@ -100,4 +149,48 @@ public class GameManager : MonoBehaviour
         if (statusText != null)
             statusText.text = $"水:{scoreWater}  温:{scoreTemp}\n緑:{scoreNature}  文:{scoreCiv}";
     }
+
+    /// <summary>
+    /// 結果発表のロジック
+    /// </summary>
+    void ShowResult()
+    {
+        //スコアの計算
+        int totleScore=scoreWater+scoreNature+scoreCiv+scoreTemp;
+        //ランク判定
+        string rank = "C";
+        string comment = "平凡な世界...";
+
+        if (totleScore >= 300)
+        {
+            rank = "S";
+            comment = "神の御業！奇跡の星！";
+        }
+        else if (totleScore >= 200)
+        {
+            rank = "A";
+            comment = "素晴らしい文明と自然！";
+        }
+        else if (totleScore >= 100)
+        {
+            rank = "B";
+            comment = "なかなか良い世界です。";
+        }
+        else if (totleScore <= 0)
+        {
+            rank = "E";
+            comment = "滅びの星...";
+        }
+
+        //画面を表示
+        if (resultPanel != null)
+        {
+            // パネルをオンにする
+            resultPanel.SetActive(true); 
+            //テキストを修正
+            rankText.text = "Rank: " + rank;
+            commentText.text = comment;
+        }
+    }
+
 }
