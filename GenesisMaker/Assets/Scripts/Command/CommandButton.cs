@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 /// <summary>
 /// コマンドのデータをボタンに移す処理
 /// </summary>
@@ -36,6 +37,11 @@ public class CommandButton : MonoBehaviour
         {
             buttonLabel.text = myCommandData.commandName;
         }
+
+        //サイズをゼロに
+        transform.localScale = Vector3.zero;
+        //0.5秒にかけてサイズを１に戻す（弾力を表現）
+        transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack);
     }
 
     /// <summary>

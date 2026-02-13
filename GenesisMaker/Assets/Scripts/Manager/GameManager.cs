@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -147,7 +148,11 @@ public class GameManager : MonoBehaviour
             turnText.text = $"Turn {currentTurn} / {maxTurn}";
 
         if (statusText != null)
+        {
             statusText.text = $"水:{scoreWater}  温:{scoreTemp}\n緑:{scoreNature}  文:{scoreCiv}";
+            //テキストを一瞬だけ1.2倍にふくまらせて戻す
+            statusText.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1);
+        }     
     }
 
     /// <summary>
