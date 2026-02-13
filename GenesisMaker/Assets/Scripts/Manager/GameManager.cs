@@ -139,9 +139,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   /// <summary>
-   /// UIテキストの更新（ターン、ステータス）
-   /// </summary>
+    /// <summary>
+    /// UIテキストの更新（ターン、ステータス）
+    /// </summary>
     void UpdateUI()
     {
         if (turnText != null)
@@ -150,9 +150,17 @@ public class GameManager : MonoBehaviour
         if (statusText != null)
         {
             statusText.text = $"水:{scoreWater}  温:{scoreTemp}\n緑:{scoreNature}  文:{scoreCiv}";
-            //テキストを一瞬だけ1.2倍にふくまらせて戻す
+
+            // DOTweenの演出
             statusText.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1);
-        }     
+
+            // スコアアップ音を鳴らす
+           //開始時の一ターン鳴らさない
+            if (currentTurn > 1)
+            {
+                AudioManager.Instance.PlaySE(AudioManager.Instance.seScoreUp);
+            }
+        }
     }
 
     /// <summary>

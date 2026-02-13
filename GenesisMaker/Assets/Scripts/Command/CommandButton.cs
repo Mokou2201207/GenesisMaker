@@ -51,6 +51,9 @@ public class CommandButton : MonoBehaviour
     {
         if (myCommandData == null) return;
 
+        //SE‚ğÄ¶
+        AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+
         //GameManage‚Éƒf[ƒ^‚ğ‘—‚é
         GameManager.Instance.ExecuteCommand(myCommandData);
     }
