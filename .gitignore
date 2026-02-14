@@ -7,3 +7,4 @@ UserSettings
 .vsconfig
 *.csproj
 *.sln
+/GenesisMaker/Bulid

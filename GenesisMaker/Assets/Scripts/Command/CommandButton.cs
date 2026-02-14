@@ -41,7 +41,7 @@ public class CommandButton : MonoBehaviour
         //サイズをゼロに
         transform.localScale = Vector3.zero;
         //0.5秒にかけてサイズを１に戻す（弾力を表現）
-        transform.DOScale(1f, 0.5f).SetEase(Ease.OutBack);
+        transform.DOScale(2f, 0.5f).SetEase(Ease.OutBack);
     }
 
     /// <summary>
