@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     [Header("ランクのText")]
     [SerializeField] private TextMeshProUGUI rankText;
     [Header("コメントのText")]
-    [SerializeField] private TextMeshProUGUI commentText; 
+    [SerializeField] private TextMeshProUGUI commentText;
 
     [Header("PlanetVisualizerの参照")]
     public PlanetVisualizer visualizer;
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
             statusText.transform.DOPunchScale(Vector3.one * 0.2f, 0.3f, 1);
 
             // スコアアップ音を鳴らす
-           //開始時の一ターン鳴らさない
+            //開始時の一ターン鳴らさない
             if (currentTurn > 1)
             {
                 AudioManager.Instance.PlaySE(AudioManager.Instance.seScoreUp);
@@ -168,42 +168,25 @@ public class GameManager : MonoBehaviour
     /// </summary>
     void ShowResult()
     {
-        //スコアの計算
-        int totleScore=scoreWater+scoreNature+scoreCiv+scoreTemp;
-        //ランク判定
-        string rank = "C";
-        string comment = "平凡な世界...";
+        string rankStr = "Unknown";
+        string commentStr = "...";
 
-        if (totleScore >= 300)
+        if (visualizer != null)
         {
-            rank = "S";
-            comment = "神の御業！奇跡の星！";
-        }
-        else if (totleScore >= 200)
-        {
-            rank = "A";
-            comment = "素晴らしい文明と自然！";
-        }
-        else if (totleScore >= 100)
-        {
-            rank = "B";
-            comment = "なかなか良い世界です。";
-        }
-        else if (totleScore <= 0)
-        {
-            rank = "E";
-            comment = "滅びの星...";
+            // Visualizerが判定したランクを取得
+            rankStr = visualizer.currentRank.ToString();
+            // Visualizerが判定したコメントを取得
+            commentStr = visualizer.currentComment;
         }
 
-        //画面を表示
+        // 画面を表示
         if (resultPanel != null)
         {
-            // パネルをオンにする
-            resultPanel.SetActive(true); 
-            //テキストを修正
-            rankText.text = "Rank: " + rank;
-            commentText.text = comment;
+            resultPanel.SetActive(true);
+            rankText.text = "Rank: " + rankStr;
+            commentText.text = commentStr;
         }
+
     }
 
 }

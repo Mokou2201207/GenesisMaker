@@ -2624,6 +2624,8 @@ MonoBehaviour:
   planetStates:
   - name: "\u571F\u7802\u5D29\u308C"
     sprite: {fileID: 21300000, guid: 1fa6c16967d196c469ffb51766f0ef76, type: 3}
+    rank: 5
+    comment: "\u4F4F\u3080\u306B\u306F\u3061\u3087\u3063\u3068\u3001\u30B9\u30EA\u30EB\u304C\u3042\u308A\u3059\u304E\u307E\u3059\u306D\u3002"
     minWater: 150
     maxWater: 999
     minNature: 70
@@ -2634,6 +2636,8 @@ MonoBehaviour:
     maxTemp: 999
   - name: "\u90FD\u5E02\u3054\u3068\u306E\u6D25\u6CE2"
     sprite: {fileID: 21300000, guid: 057f0f04cc9285549a0435071edcf5ff, type: 3}
+    rank: 5
+    comment: "\u30A6\u30A9\u30FC\u30BF\u30FC\u30B9\u30E9\u30A4\u30C0\u30FC\u306B\u3057\u3066\u306F\u3001\u6FC0\u3057\u3059\u304E\u307E\u305B\u3093\uFF1F"
     minWater: 150
     maxWater: 999
     minNature: -999
@@ -2644,6 +2648,8 @@ MonoBehaviour:
     maxTemp: 999
   - name: "\u6C37\u70B9\u4E0B\uFF08\u6C37\uFF09"
     sprite: {fileID: 21300000, guid: 8cb88e2fb9ab6664397f3e9345b6b8bd, type: 3}
+    rank: 5
+    comment: "\u5BD2\u3059\u304E\u3066\u6642\u304C\u6B62\u307E\u3063\u3066\u307E\u3059\u3002\u30AB\u30AD\u6C37\u3092\u4F5C\u308B\u6C17\u3067\u3059\u304B\uFF1F"
     minWater: 15
     maxWater: 999
     minNature: -999
@@ -2654,6 +2660,8 @@ MonoBehaviour:
     maxTemp: -40
   - name: "\u6C37\u70B9\u4E0B"
     sprite: {fileID: 21300000, guid: 123263067fbf8c247be7fb6655dece73, type: 3}
+    rank: 6
+    comment: "\u3059\u3079\u3066\u304C\u771F\u3063\u767D\u3058\u3083\u306A\u3044\u3067\u3059\u304B...\u5229\u70B9\u306F\u7DBA\u9E97\u3060\u3051\u304B\u306A..."
     minWater: -999
     maxWater: 999
     minNature: -999
@@ -2664,16 +2672,44 @@ MonoBehaviour:
     maxTemp: -30
   - name: "\u5C11\u3057\u3060\u3051\u6587\u660E\u767A\u5C55"
     sprite: {fileID: 21300000, guid: b7e69035389c7f542a48a2021b9de7c5, type: 3}
+    rank: 4
+    comment: "\u9060\u616E\u304C\u3061\u306A\u6587\u660E\u3067\u3059\u306D\u3002\u3082\u3063\u3068\u5EFA\u3066\u3066\u3082\u3044\u3044\u3093\u3067\u3059\u3088\uFF1F"
     minWater: 10
     maxWater: 999
-    minNature: 10
+    minNature: 20
     maxNature: 999
     minCiv: 25
     maxCiv: 999
     minTemp: 10
     maxTemp: 999
+  - name: "\u8349\u539F\u3084\u6728"
+    sprite: {fileID: 21300000, guid: 5a9193f2a8c93864bbe937597c09736b, type: 3}
+    rank: 5
+    comment: "\u30B4\u30EB\u30D5\u5834\u306B\u3059\u308B\u306B\u306F\u3001\u3061\u3087\u3063\u3068\u5E83\u3059\u304E\u307E\u3059\u304B\u306D\uFF1F"
+    minWater: 15
+    maxWater: 999
+    minNature: 15
+    maxNature: 999
+    minCiv: -999
+    maxCiv: 999
+    minTemp: -999
+    maxTemp: 999
+  - name: "\u5C11\u3057\u306E\u8349\u539F"
+    sprite: {fileID: 21300000, guid: 6f67c942075a0c24cb722fc33d188479, type: 3}
+    rank: 6
+    comment: "\u3068\u308A\u3042\u3048\u305A\u7DD1\u3092\u7F6E\u3044\u3066\u307F\u305F\u611F\u3001\u30D0\u30EC\u3066\u307E\u3059\u3088\u3002"
+    minWater: 15
+    maxWater: 999
+    minNature: 5
+    maxNature: 999
+    minCiv: -999
+    maxCiv: 999
+    minTemp: -999
+    maxTemp: 999
   - name: "\u5C11\u3057\u306E\u305F\u3081\u6C60"
     sprite: {fileID: 21300000, guid: 851ac6567847413419a732f2cdfecf2f, type: 3}
+    rank: 6
+    comment: "\u6D77\u3092\u4F5C\u308B\u3064\u3082\u308A\u304C\u3001\u6C34\u305F\u307E\u308A\u306B\u306A\u3063\u3061\u3083\u3063\u305F\uFF1F"
     minWater: 15
     maxWater: 999
     minNature: -999
@@ -2683,6 +2719,8 @@ MonoBehaviour:
     minTemp: -999
     maxTemp: 999
   defaultSprite: {fileID: 21300000, guid: 49c49b900695a38448ed71b956fa4884, type: 3}
+  defaultRank: 6
+  defaultComment: "\u672A\u77E5\u306E\u60D1\u661F..."
 --- !u!1 &1743258498
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
+/// ランクの種類を定義
+/// </summary>
+public enum PlanetRank
+{
+    S,
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+}
+
+/// <summary>
 /// 画像Change
 /// </summary>
 public class PlanetVisualizer : MonoBehaviour
@@ -15,6 +29,15 @@ public class PlanetVisualizer : MonoBehaviour
 
     [Header("デフォルトの画像（どれにも当てはまらない時）")]
     [SerializeField] private Sprite defaultSprite;
+
+    [Header(" デフォルトのランク")]
+    [SerializeField] private PlanetRank defaultRank = PlanetRank.F;
+    [Header("デフォルトのコメント")]
+    [SerializeField] private string defaultComment = "未知の惑星...";
+
+    //外部から今の状態を見れるようにする変数
+    public PlanetRank currentRank { get; private set; }
+    public string currentComment { get; private set; }
 
     // 画像のキャッシュ（負荷対策）
     private Sprite currentSprite;
@@ -32,12 +55,21 @@ public class PlanetVisualizer : MonoBehaviour
             {
                 //マッチしたらその画像に変えて、終了（return）
                 ChangeSprite(state.sprite);
+
+                //マッチした条件のランクとコメントを保存する
+                currentRank = state.rank;
+                currentComment = state.comment;
+
                 return;
             }
         }
 
         // 全部チェックしてダメだったら、デフォルト画像にする
         ChangeSprite(defaultSprite);
+
+        //デフォルトのランクとコメントを保存
+        currentRank = defaultRank;
+        currentComment = defaultComment;
     }
 
     /// <summary>
@@ -48,7 +80,7 @@ public class PlanetVisualizer : MonoBehaviour
     {
         if (newSprite == null || targetImage == null) return;
         // 同じなら変えない
-        if (currentSprite == newSprite) return; 
+        if (currentSprite == newSprite) return;
 
         targetImage.sprite = newSprite;
         currentSprite = newSprite;
@@ -64,11 +96,17 @@ public class PlanetState
 {
     [Header("画像の名前")]
     public string name;
+
     [Header("表示するスプライト")]
     public Sprite sprite;
 
+    [Header("このランク")]
+    public PlanetRank rank;
+
+    [Header("リザルト時のコメント")]
+    [TextArea] public string comment;
+
     [Header("発生条件（Min以上 ～ Max以下）")]
-    
     [Header("水のステータス")]
     [Range(-999, 999)] public int minWater = 0;
     [Range(-999, 999)] public int maxWater = 999;
