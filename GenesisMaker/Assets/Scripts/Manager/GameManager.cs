@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         //画像の更新処理
         if (visualizer != null)
         {
-            visualizer.UpdateVisuals(scoreWater, scoreNature, scoreCiv);
+            visualizer.UpdateVisuals(scoreWater, scoreNature, scoreCiv, scoreTemp);
         }
 
         //画面更新

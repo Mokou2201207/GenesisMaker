@@ -3,56 +3,98 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// 数値をチェックして、適切な画像を貼る
+/// 画像Change
 /// </summary>
 public class PlanetVisualizer : MonoBehaviour
 {
-    [Header("Mein画像をアタッチ（色々な画像に変わる場所）")]
+    [Header("表示先のImage")]
     [SerializeField] private Image targetImage;
 
-    //画像の素材
-    [Header("荒野")]
-    [SerializeField] private Sprite stage0_Wasteland;
-    [Header("海")]
-    [SerializeField] private Sprite stage1_Water;    
-    [Header("森")]
-    [SerializeField] private Sprite stage2_Nature;    
-    [Header("都市")]
-    [SerializeField] private Sprite stage3_Civil;    
+    [Header("条件リスト（上にあるものが優先される）")]
+    public List<PlanetState> planetStates = new List<PlanetState>();
+
+    [Header("デフォルトの画像（どれにも当てはまらない時）")]
+    [SerializeField] private Sprite defaultSprite;
+
+    // 画像のキャッシュ（負荷対策）
+    private Sprite currentSprite;
 
     /// <summary>
-    /// 数値を受け取って、画像を着せ替える関数
+    /// ステータスを受け取って、リストを上から順にチェックする
     /// </summary>
-    public void UpdateVisuals(int water, int nature, int civ)
+    public void UpdateVisuals(int water, int nature, int civ, int temp)
     {
-        // 文明50以上なら「都市」
-        if (civ >= 50)
+        // リストの中身を上から順番に見ていく
+        foreach (var state in planetStates)
         {
-            ChangeSprite(stage3_Civil);
+            // 条件を満たしているかチェック
+            if (state.IsMatch(water, nature, civ, temp))
+            {
+                //マッチしたらその画像に変えて、終了（return）
+                ChangeSprite(state.sprite);
+                return;
+            }
         }
-        // 自然30以上なら「森」
-        else if (nature >= 30)
-        {
-            ChangeSprite(stage2_Nature);
-        }
-        // 水20以上なら「海」
-        else if (water >= 20)
-        {
-            ChangeSprite(stage1_Water);
-        }
-        // それ以外（初期状態）は「荒野」
-        else
-        {
-            ChangeSprite(stage0_Wasteland);
-        }
+
+        // 全部チェックしてダメだったら、デフォルト画像にする
+        ChangeSprite(defaultSprite);
     }
 
-    // 画像を入れ替える用の関数
+    /// <summary>
+    /// 画像を変更する処理
+    /// </summary>
+    /// <param name="newSprite"></param>
     void ChangeSprite(Sprite newSprite)
     {
-        // 画像がセットされていなければ何もしない
         if (newSprite == null || targetImage == null) return;
+        // 同じなら変えない
+        if (currentSprite == newSprite) return; 
 
         targetImage.sprite = newSprite;
+        currentSprite = newSprite;
+    }
+}
+
+/// <summary>
+/// リストの中身
+/// </summary>
+/// ↓これを書くとInspectorに表示される
+[System.Serializable]
+public class PlanetState
+{
+    [Header("画像の名前")]
+    public string name;
+    [Header("表示するスプライト")]
+    public Sprite sprite;
+
+    [Header("発生条件（Min以上 ～ Max以下）")]
+    
+    [Header("水のステータス")]
+    [Range(-999, 999)] public int minWater = 0;
+    [Range(-999, 999)] public int maxWater = 999;
+
+    [Header("自然のステータス")]
+    [Range(-999, 999)] public int minNature = 0;
+    [Range(-999, 999)] public int maxNature = 999;
+
+    [Header("文明のステータス")]
+    [Range(-999, 999)] public int minCiv = 0;
+    [Range(-999, 999)] public int maxCiv = 999;
+
+    [Header("温度のステータス")]
+    [Range(-999, 999)] public int minTemp = 0;
+    [Range(-999, 999)] public int maxTemp = 999;
+
+    // 条件判定をする機能
+    public bool IsMatch(int w, int n, int c, int t)
+    {
+        // 全ての条件が範囲内に入っているか？
+        bool isWaterOk = (w >= minWater && w <= maxWater);
+        bool isNatureOk = (n >= minNature && n <= maxNature);
+        bool isCivOk = (c >= minCiv && c <= maxCiv);
+        bool isTempOk = (t >= minTemp && t <= maxTemp);
+
+        // 全部OKなら true を返す
+        return isWaterOk && isNatureOk && isCivOk && isTempOk;
     }
 }

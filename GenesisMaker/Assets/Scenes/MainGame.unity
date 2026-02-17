@@ -2621,10 +2621,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetImage: {fileID: 1603008139}
-  stage0_Wasteland: {fileID: 21300000, guid: a71ad1eda407530458e481a2bee973cc, type: 3}
-  stage1_Water: {fileID: 21300000, guid: 0464ede3a85d30346a9c697f2acb4c10, type: 3}
-  stage2_Nature: {fileID: 21300000, guid: 56b7130a0a7e27648bc09973b8e1c9cf, type: 3}
-  stage3_Civil: {fileID: 21300000, guid: 7c4d2bd84ef205444ae57a1b9682895f, type: 3}
+  planetStates:
+  - name: "\u571F\u7802\u5D29\u308C"
+    sprite: {fileID: 21300000, guid: 1fa6c16967d196c469ffb51766f0ef76, type: 3}
+    minWater: 150
+    maxWater: 999
+    minNature: 70
+    maxNature: 999
+    minCiv: -999
+    maxCiv: 999
+    minTemp: -999
+    maxTemp: 999
+  - name: "\u90FD\u5E02\u3054\u3068\u306E\u6D25\u6CE2"
+    sprite: {fileID: 21300000, guid: 057f0f04cc9285549a0435071edcf5ff, type: 3}
+    minWater: 150
+    maxWater: 999
+    minNature: -999
+    maxNature: 999
+    minCiv: 50
+    maxCiv: 999
+    minTemp: -999
+    maxTemp: 999
+  - name: "\u6C37\u70B9\u4E0B\uFF08\u6C37\uFF09"
+    sprite: {fileID: 21300000, guid: 8cb88e2fb9ab6664397f3e9345b6b8bd, type: 3}
+    minWater: 15
+    maxWater: 999
+    minNature: -999
+    maxNature: 999
+    minCiv: -999
+    maxCiv: 999
+    minTemp: -999
+    maxTemp: -40
+  - name: "\u6C37\u70B9\u4E0B"
+    sprite: {fileID: 21300000, guid: 123263067fbf8c247be7fb6655dece73, type: 3}
+    minWater: -999
+    maxWater: 999
+    minNature: -999
+    maxNature: 999
+    minCiv: -999
+    maxCiv: 999
+    minTemp: -999
+    maxTemp: -30
+  - name: "\u5C11\u3057\u3060\u3051\u6587\u660E\u767A\u5C55"
+    sprite: {fileID: 21300000, guid: b7e69035389c7f542a48a2021b9de7c5, type: 3}
+    minWater: 10
+    maxWater: 999
+    minNature: 10
+    maxNature: 999
+    minCiv: 25
+    maxCiv: 999
+    minTemp: 10
+    maxTemp: 999
+  - name: "\u5C11\u3057\u306E\u305F\u3081\u6C60"
+    sprite: {fileID: 21300000, guid: 851ac6567847413419a732f2cdfecf2f, type: 3}
+    minWater: 15
+    maxWater: 999
+    minNature: -999
+    maxNature: 999
+    minCiv: -999
+    maxCiv: 999
+    minTemp: -999
+    maxTemp: 999
+  defaultSprite: {fileID: 21300000, guid: 49c49b900695a38448ed71b956fa4884, type: 3}
 --- !u!1 &1743258498
 GameObject:
   m_ObjectHideFlags: 0
