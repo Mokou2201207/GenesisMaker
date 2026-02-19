@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private TextMeshProUGUI statusText;
 
+    [Header("リロールボタン")]
+    [SerializeField] private UnityEngine.UI.Button rerollButton;
+    [Header("残り回数表示用のテキスト")]
+    [SerializeField] private TMPro.TextMeshProUGUI rerollText; 
+    private int rerollCount = 3;                                 
+
     //システムコマンド
     [Header("三つあるボタンをアタッチ")]
     [SerializeField] private CommandButton[] commandButtons;
@@ -66,6 +72,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateUI();
+
+        // ゲーム開始時にリロール回数を3にして、UIを更新する
+        rerollCount = 3;
+        UpdateRerollUI();
     }
 
     /// <summary>
@@ -189,4 +199,37 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// リロールボタンが押された際に呼ばれる処理
+    /// </summary>
+    public void OnRerollButtonClicked()
+    {
+        //カウントがまだあるなら
+        if (rerollCount>0)
+        {
+            //カウントを減らす
+            rerollCount--;
+            //画面の数字とボタンを更新
+            UpdateRerollUI();
+            //カード（コマンド）を新しく更新
+            SetNextCommands();
+        }
+    }
+
+    /// <summary>
+    /// 残り回数テキストとボタンのON/OFFを更新する処理
+    /// </summary>
+    void UpdateRerollUI()
+    {
+        if (rerollText != null)
+        {
+            rerollText.text = "引き直し: " + rerollCount + "回";
+        }
+
+        if (rerollButton != null)
+        {
+            // 0回になったらボタンを押せなくする
+            rerollButton.interactable = (rerollCount > 0);
+        }
+    }
 }
