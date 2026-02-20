@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private TextMeshProUGUI statusText;
 
+    //リロールボタンのコマンド
     [Header("リロールボタン")]
     [SerializeField] private UnityEngine.UI.Button rerollButton;
     [Header("残り回数表示用のテキスト")]
@@ -43,6 +44,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CommandButton[] commandButtons;
     [Header("コマンドのデータを全てアタッチ")]
     [SerializeField] private List<CommandData> allCommandDatabase;
+
+    //確認ポップアップUI
+    [Header("確認ポップアップUI")]
+    [SerializeField] private GameObject confirmPopupPanel;
+    [Header("「〇〇を使いますか？」のテキスト")]
+    [SerializeField] private TextMeshProUGUI confirmTitleText;  
+    [Header("ステータス表示テキスト")]
+    [SerializeField] private TextMeshProUGUI confirmStatusText;  
+
+    // 選んだコマンドを一時的に覚えておくための変数
+    private CommandData pendingCommand;
 
     //リザルト用のUI
     [Header("Panel_Resultをアタッチ")]
@@ -231,5 +243,62 @@ public class GameManager : MonoBehaviour
             // 0回になったらボタンを押せなくする
             rerollButton.interactable = (rerollCount > 0);
         }
+    }
+
+    /// <summary>
+    /// コマンドが選ばれた時に呼ばれる
+    /// </summary>
+    /// <param name="data"></param>
+    public void ShowConfirmPopup(CommandData data)
+    {
+        // 選ばれたコマンドのデータを一旦キープする
+        pendingCommand = data;
+
+        // UIのテキストを書き換える
+        if (confirmTitleText != null)
+            confirmTitleText.text = $"{data.commandName} のコマンドを使いますか？";
+
+        if (confirmStatusText != null)
+            confirmStatusText.text = $"水: {data.waterChange} / 温: {data.tempChange} / 緑: {data.natureChange} / 文: {data.civChange}";
+
+        // ポップアップ画面を表示する
+        if (confirmPopupPanel != null)
+            confirmPopupPanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// ポップアップの「使用」ボタンを押した時の処理
+    /// </summary>
+    public void OnConfirmYes()
+    {
+        // ポップアップを閉じる
+        confirmPopupPanel.SetActive(false); 
+
+        if (pendingCommand != null)
+        {
+            //コマンドを発動させる
+            ExecuteCommand(pendingCommand);
+            // 保存しておいたものを初期化
+            pendingCommand = null;         
+        }
+    }
+
+    /// <summary>
+    /// ポップアップの「戻る」ボタンを押した時の処理
+    /// </summary>
+    public void OnConfirmClose()
+    {
+        confirmPopupPanel.SetActive(false); 
+        pendingCommand = null;
+    }
+
+    /// <summary>
+    /// ポップアップの「保留」ボタンを押した時の処理
+    /// </summary>
+    public void OnConfirmKeep()
+    {
+        Debug.Log("<color=yellow>保留しました!");
+        confirmPopupPanel.SetActive(false); 
+        pendingCommand = null;
     }
 }

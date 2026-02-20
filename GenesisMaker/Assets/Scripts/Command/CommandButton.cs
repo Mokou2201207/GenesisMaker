@@ -55,6 +55,6 @@ public class CommandButton : MonoBehaviour
         AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
 
         //GameManage‚Éƒf[ƒ^‚ğ‘—‚é
-        GameManager.Instance.ExecuteCommand(myCommandData);
+        GameManager.Instance.ShowConfirmPopup(myCommandData);
     }
 }
