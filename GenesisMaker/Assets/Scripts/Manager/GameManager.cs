@@ -51,7 +51,12 @@ public class GameManager : MonoBehaviour
     [Header("「〇〇を使いますか？」のテキスト")]
     [SerializeField] private TextMeshProUGUI confirmTitleText;  
     [Header("ステータス表示テキスト")]
-    [SerializeField] private TextMeshProUGUI confirmStatusText;  
+    [SerializeField] private TextMeshProUGUI confirmStatusText;
+
+    [Header("ステータスを表示するパネル")]
+    [SerializeField] private GameObject statusInfoPanel;
+    [Header("ステータスのテキスト")]
+    [SerializeField] private TextMeshProUGUI statusInfoText;  
 
     // 選んだコマンドを一時的に覚えておくための変数
     private CommandData pendingCommand;
@@ -300,5 +305,31 @@ public class GameManager : MonoBehaviour
         Debug.Log("<color=yellow>保留しました!");
         confirmPopupPanel.SetActive(false); 
         pendingCommand = null;
+    }
+
+    /// <summary>
+    /// コマンドが長押しされた時に呼ばれる（ステータス表示）
+    /// </summary>
+    public void ShowCommandStatusUI(CommandData data)
+    {
+        if (statusInfoText != null)
+        {
+            statusInfoText.text = $"{data.commandName} の効果\n水: {data.waterChange} / 温: {data.tempChange} / 緑: {data.natureChange} / 文: {data.civChange}";
+        }
+        if (statusInfoPanel != null)
+        {
+            statusInfoPanel.SetActive(true);
+        }
+    }
+
+    /// <summary>
+    /// 長押しの指を離した時に呼ばれる（ステータス非表示）
+    /// </summary>
+    public void HideCommandStatusUI()
+    {
+        if (statusInfoPanel != null)
+        {
+            statusInfoPanel.SetActive(false);
+        }
     }
 }
