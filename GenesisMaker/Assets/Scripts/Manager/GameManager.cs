@@ -61,6 +61,21 @@ public class GameManager : MonoBehaviour
     // 選んだコマンドを一時的に覚えておくための変数
     private CommandData pendingCommand;
 
+    //保留画面UI（スワイプの方）
+    [Header("保留したコマンドを入れておく箱")]
+    public List<CommandData> holdCommands = new List<CommandData>();
+    [Header("全体のパネル")]
+    [SerializeField] private GameObject holdViewPanel;       
+    [Header("タイトルテキスト")]
+    [SerializeField] private TextMeshProUGUI holdTitleText;   
+    [Header("ステータス表示テキスト")]
+    [SerializeField] private TextMeshProUGUI holdStatusText;  
+    [Header("ページ数テキスト")]
+    [SerializeField] private TextMeshProUGUI holdPageText;
+
+    // 今見ている保留コマンドの番号
+    private int currentHoldIndex = 0; 
+
     //リザルト用のUI
     [Header("Panel_Resultをアタッチ")]
     [SerializeField] private GameObject resultPanel;
@@ -302,9 +317,120 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnConfirmKeep()
     {
+        //3つ以上は保留できないようにする
+        if (holdCommands.Count >= 3)
+        {
+            Debug.Log("<color=red>保留枠がいっぱいです！（最大3つまで）</color>");
+            return;
+        }
         Debug.Log("<color=yellow>保留しました!");
-        confirmPopupPanel.SetActive(false); 
+        confirmPopupPanel.SetActive(false);
+
+        //保存用の変数があれば
+        if (pendingCommand!=null)
+        {
+            holdCommands.Add(pendingCommand);
+
+            //保留した時もターンを消費する（パラメータは増えない）
+            currentTurn++;
+            if (currentTurn <= maxTurn)
+            {
+                // 次のターンのカードを配る
+                SetNextCommands();
+            }
+            // ターンの表示を更新
+            UpdateUI();
+
+            // もし最終ターンを超えたら結果発表へ
+            if (currentTurn > maxTurn)
+            {
+                ShowResult();
+            }
+        }
         pendingCommand = null;
+    }
+
+    /// <summary>
+    /// メニューの「保留」ボタンを押した時に開く処理
+    /// </summary>
+    public void OpenHoldView()
+    {
+        currentHoldIndex = 0;
+        UpdateHoldView();
+
+        if (holdViewPanel != null) holdViewPanel.SetActive(true);
+    }
+
+    /// <summary>
+    /// 保留画面の表示を更新する
+    /// </summary>
+    public void UpdateHoldView()
+    {
+        // なくなったら閉じる
+        if (holdCommands.Count == 0)
+        {
+            if (holdTitleText != null) holdTitleText.text = "保留しているコマンドはありません";
+            if (holdStatusText != null) holdStatusText.text = ""; 
+            if (holdPageText != null) holdPageText.text = "0 / 0";
+            return;
+        }
+
+        CommandData data = holdCommands[currentHoldIndex];
+
+        if (holdTitleText != null) holdTitleText.text = $"{data.commandName} のコマンド";
+        if (holdStatusText != null) holdStatusText.text = $"水: {data.waterChange} / 温: {data.tempChange} / 緑: {data.natureChange} / 文: {data.civChange}";
+        if (holdPageText != null) holdPageText.text = $"{currentHoldIndex + 1} / {holdCommands.Count}";
+    }
+
+    /// <summary>
+    /// 保留画面の「もどる」ボタン
+    /// </summary>
+    public void CloseHoldView()
+    {
+        if (holdViewPanel != null) holdViewPanel.SetActive(false);
+    }
+
+    /// <summary>
+    /// 保留画面の「使用」ボタン
+    /// </summary>
+    public void UseHoldCommand()
+    {
+        if (holdCommands.Count == 0) return;
+
+        CommandData dataToUse = holdCommands[currentHoldIndex]; // 今表示しているデータを取得
+        holdCommands.RemoveAt(currentHoldIndex); // リストから消す
+
+        ExecuteCommand(dataToUse); // 発動
+
+        // 残りの保留があるかチェックして画面を更新
+        if (currentHoldIndex >= holdCommands.Count && holdCommands.Count > 0)
+        {
+            currentHoldIndex = holdCommands.Count - 1;
+        }
+        else if (holdCommands.Count == 0)
+        {
+            currentHoldIndex = 0; // ゼロ個になったら0ページ目に戻す
+        }
+        UpdateHoldView();
+    }
+
+    // ＝＝＝ ここからスワイプ用の処理 ＝＝＝
+    public void HoldNextPage()
+    {
+        if (currentHoldIndex < holdCommands.Count - 1)
+        {
+            currentHoldIndex++;
+            UpdateHoldView();
+        }
+    }
+
+    public void HoldPrevPage()
+    {
+        if (currentHoldIndex > 0)
+        {
+            currentHoldIndex--;
+            UpdateHoldView();
+        }
     }
 
     /// <summary>
