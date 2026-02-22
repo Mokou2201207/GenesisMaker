@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// ƒ‰ƒ“ƒN‚Ìí—Ş‚ğ’è‹`
+/// ãƒ©ãƒ³ã‚¯ã®ç¨®é¡ã‚’å®šç¾©
 /// </summary>
 public enum PlanetRank
 {
@@ -17,122 +17,171 @@ public enum PlanetRank
 }
 
 /// <summary>
-/// ‰æ‘œChange
+/// ç”»åƒChange
 /// </summary>
 public class PlanetVisualizer : MonoBehaviour
 {
-    [Header("•\¦æ‚ÌImage")]
+    [Header("è¡¨ç¤ºå…ˆã®Image")]
     [SerializeField] private Image targetImage;
 
-    [Header("ğŒƒŠƒXƒgiã‚É‚ ‚é‚à‚Ì‚ª—Dæ‚³‚ê‚éj")]
+    [Header("æ¡ä»¶ãƒªã‚¹ãƒˆï¼ˆä¸Šã«ã‚ã‚‹ã‚‚ã®ãŒå„ªå…ˆã•ã‚Œã‚‹ï¼‰")]
     public List<PlanetState> planetStates = new List<PlanetState>();
 
-    [Header("ƒfƒtƒHƒ‹ƒg‚Ì‰æ‘œi‚Ç‚ê‚É‚à“–‚Ä‚Í‚Ü‚ç‚È‚¢j")]
+    [Header("ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ç”»åƒï¼ˆã©ã‚Œã«ã‚‚å½“ã¦ã¯ã¾ã‚‰ãªã„æ™‚ï¼‰")]
     [SerializeField] private Sprite defaultSprite;
 
-    [Header(" ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒ“ƒN")]
+    [Header(" ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ãƒ³ã‚¯")]
     [SerializeField] private PlanetRank defaultRank = PlanetRank.F;
-    [Header("ƒfƒtƒHƒ‹ƒg‚ÌƒRƒƒ“ƒg")]
-    [SerializeField] private string defaultComment = "–¢’m‚Ì˜f¯...";
+    [Header("ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚³ãƒ¡ãƒ³ãƒˆ")]
+    [SerializeField] private string defaultComment = "æœªçŸ¥ã®æƒ‘æ˜Ÿ...";
 
-    //ŠO•”‚©‚ç¡‚Ìó‘Ô‚ğŒ©‚ê‚é‚æ‚¤‚É‚·‚é•Ï”
+    [Header("ãƒãƒ£ãƒƒãƒˆç”¨ã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãƒ†ã‚­ã‚¹ãƒˆ")]
+    [SerializeField] private string defaultChatComment = "æ˜Ÿã«å¤‰åŒ–ãŒèµ·ããŸã‚ˆã†ã ...";
+
+    //ã‚³ãƒ¡ãƒ³ãƒˆ
+    [Header("ãƒãƒ£ãƒƒãƒˆã®Text")]
+    [SerializeField] private Text chatText;
+
+    [Header("æ–‡å­—ãŒå‡ºã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰")]
+    [SerializeField] private float typeSpeed = 0.05f;
+
+    [Header("ç”»é¢æ“ä½œãƒ–ãƒ­ãƒƒã‚¯ç”¨ã®é€æ˜ãƒ‘ãƒãƒ«")]
+    [SerializeField] private GameObject inputBlockerPanel;
+
+    //å¤–éƒ¨ã‹ã‚‰ä»Šã®çŠ¶æ…‹ã‚’è¦‹ã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹å¤‰æ•°
     public PlanetRank currentRank { get; private set; }
     public string currentComment { get; private set; }
 
-    // ‰æ‘œ‚ÌƒLƒƒƒbƒVƒ…i•‰‰×‘Îôj
+    // ç”»åƒã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
     private Sprite currentSprite;
 
+    private Coroutine typingCoroutine;
+
     /// <summary>
-    /// ƒXƒe[ƒ^ƒX‚ğó‚¯æ‚Á‚ÄAƒŠƒXƒg‚ğã‚©‚ç‡‚Éƒ`ƒFƒbƒN‚·‚é
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å—ã‘å–ã£ã¦ã€ãƒªã‚¹ãƒˆã‚’ä¸Šã‹ã‚‰é †ã«ãƒã‚§ãƒƒã‚¯ã™ã‚‹
     /// </summary>
     public void UpdateVisuals(int water, int nature, int civ, int temp)
     {
-        // ƒŠƒXƒg‚Ì’†g‚ğã‚©‚ç‡”Ô‚ÉŒ©‚Ä‚¢‚­
         foreach (var state in planetStates)
         {
-            // ğŒ‚ğ–‚½‚µ‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN
             if (state.IsMatch(water, nature, civ, temp))
             {
-                //ƒ}ƒbƒ`‚µ‚½‚ç‚»‚Ì‰æ‘œ‚É•Ï‚¦‚ÄAI—¹ireturnj
-                ChangeSprite(state.sprite);
-
-                //ƒ}ƒbƒ`‚µ‚½ğŒ‚Ìƒ‰ƒ“ƒN‚ÆƒRƒƒ“ƒg‚ğ•Û‘¶‚·‚é
+                // ãƒãƒƒãƒã—ãŸæ¡ä»¶ã®ãƒ©ãƒ³ã‚¯ã¨ã‚³ãƒ¡ãƒ³ãƒˆã‚’ä¿å­˜ã™ã‚‹
                 currentRank = state.rank;
                 currentComment = state.comment;
 
+                // ãƒãƒƒãƒã—ãŸã‚‰ç”»åƒã¨ã‚³ãƒ¡ãƒ³ãƒˆã®å¤‰æ›´å‡¦ç†ã¸
+                ChangeState(state.sprite, state.chatComment);
                 return;
             }
         }
 
-        // ‘S•”ƒ`ƒFƒbƒN‚µ‚Äƒ_ƒ‚¾‚Á‚½‚çAƒfƒtƒHƒ‹ƒg‰æ‘œ‚É‚·‚é
-        ChangeSprite(defaultSprite);
-
-        //ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒ“ƒN‚ÆƒRƒƒ“ƒg‚ğ•Û‘¶
+        // å…¨éƒ¨ãƒã‚§ãƒƒã‚¯ã—ã¦ãƒ€ãƒ¡ã ã£ãŸã‚‰ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã«ã™ã‚‹
         currentRank = defaultRank;
         currentComment = defaultComment;
+        ChangeState(defaultSprite, defaultComment);
     }
 
     /// <summary>
-    /// ‰æ‘œ‚ğ•ÏX‚·‚éˆ—
+    /// ç”»åƒã‚’å¤‰æ›´ã—ã€å¿…è¦ãªã‚‰ã‚³ãƒ¡ãƒ³ãƒˆã‚’æµã™å‡¦ç†
     /// </summary>
-    /// <param name="newSprite"></param>
-    void ChangeSprite(Sprite newSprite)
+    void ChangeState(Sprite newSprite, string newComment)
     {
         if (newSprite == null || targetImage == null) return;
-        // “¯‚¶‚È‚ç•Ï‚¦‚È‚¢
+
+        //ç”»åƒãŒåŒã˜ãªã‚‰å‡¦ç†ã—ãªã„
         if (currentSprite == newSprite) return;
 
+        // ç”»åƒã‚’æ–°ã—ã„ã‚‚ã®ã«æ›´æ–°
         targetImage.sprite = newSprite;
         currentSprite = newSprite;
+
+        // å‰ã®æ–‡å­—é€ã‚Šæ¼”å‡ºãŒå‹•ã„ã¦ã„ãŸã‚‰æ­¢ã‚ã‚‹
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
+
+        // æ–°ã—ã„ã‚³ãƒ¡ãƒ³ãƒˆã®æ–‡å­—é€ã‚Šæ¼”å‡ºã‚’ã‚¹ã‚¿ãƒ¼ãƒˆ
+        typingCoroutine = StartCoroutine(TypeTextCoroutine(newComment));
+    }
+
+    /// <summary>
+    /// 1æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹æ©Ÿèƒ½
+    /// </summary>
+    IEnumerator TypeTextCoroutine(string textToType)
+    {
+        // ã‚³ãƒãƒ³ãƒ‰ã‚’æŠ¼ã›ãªãã™ã‚‹ï¼ˆé€æ˜ãƒ‘ãƒãƒ«ã‚’ONï¼‰
+        if (inputBlockerPanel != null) inputBlockerPanel.SetActive(true);
+
+        // ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸€æ—¦ç©ºã«ã™ã‚‹
+        if (chatText != null) chatText.text = "";
+
+        // 1æ–‡å­—ãšã¤è¿½åŠ ã—ã¦ã„ã
+        if (chatText != null)
+        {
+            foreach (char c in textToType.ToCharArray())
+            {
+                chatText.text += c;
+                // æŒ‡å®šã—ãŸã‚¹ãƒ”ãƒ¼ãƒ‰åˆ†å¾…ã¤
+                yield return new WaitForSeconds(typeSpeed); 
+            }
+        }
+
+        //æ–‡å­—ãŒå…¨éƒ¨å‡ºçµ‚ã‚ã£ãŸã‚‰ã€ã‚³ãƒãƒ³ãƒ‰ã‚’æŠ¼ã›ã‚‹ã‚ˆã†ã«ã™ã‚‹ï¼ˆé€æ˜ãƒ‘ãƒãƒ«ã‚’OFFï¼‰
+        if (inputBlockerPanel != null) inputBlockerPanel.SetActive(false);
     }
 }
 
 /// <summary>
-/// ƒŠƒXƒg‚Ì’†g
+/// ãƒªã‚¹ãƒˆã®ä¸­èº«
 /// </summary>
-/// «‚±‚ê‚ğ‘‚­‚ÆInspector‚É•\¦‚³‚ê‚é
+/// â†“ã“ã‚Œã‚’æ›¸ãã¨Inspectorã«è¡¨ç¤ºã•ã‚Œã‚‹
 [System.Serializable]
 public class PlanetState
 {
-    [Header("‰æ‘œ‚Ì–¼‘O")]
+    [Header("ç”»åƒã®åå‰")]
     public string name;
 
-    [Header("•\¦‚·‚éƒXƒvƒ‰ƒCƒg")]
+    [Header("è¡¨ç¤ºã™ã‚‹ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ")]
     public Sprite sprite;
 
-    [Header("‚±‚Ìƒ‰ƒ“ƒN")]
+    [Header("ã“ã®ãƒ©ãƒ³ã‚¯")]
     public PlanetRank rank;
 
-    [Header("ƒŠƒUƒ‹ƒg‚ÌƒRƒƒ“ƒg")]
+    [Header("ãƒªã‚¶ãƒ«ãƒˆæ™‚ã®ã‚³ãƒ¡ãƒ³ãƒˆ")]
     [TextArea] public string comment;
 
-    [Header("”­¶ğŒiMinˆÈã ` MaxˆÈ‰ºj")]
-    [Header("…‚ÌƒXƒe[ƒ^ƒX")]
+    [Header("å¤‰åŒ–æ™‚ã«ãƒãƒ£ãƒƒãƒˆã«å‡ºã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
+    [TextArea] public string chatComment;
+
+    [Header("ç™ºç”Ÿæ¡ä»¶ï¼ˆMinä»¥ä¸Š ï½ Maxä»¥ä¸‹ï¼‰")]
+    [Header("æ°´ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹")]
     [Range(-999, 999)] public int minWater = 0;
     [Range(-999, 999)] public int maxWater = 999;
 
-    [Header("©‘R‚ÌƒXƒe[ƒ^ƒX")]
+    [Header("è‡ªç„¶ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹")]
     [Range(-999, 999)] public int minNature = 0;
     [Range(-999, 999)] public int maxNature = 999;
 
-    [Header("•¶–¾‚ÌƒXƒe[ƒ^ƒX")]
+    [Header("æ–‡æ˜ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹")]
     [Range(-999, 999)] public int minCiv = 0;
     [Range(-999, 999)] public int maxCiv = 999;
 
-    [Header("‰·“x‚ÌƒXƒe[ƒ^ƒX")]
+    [Header("æ¸©åº¦ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹")]
     [Range(-999, 999)] public int minTemp = 0;
     [Range(-999, 999)] public int maxTemp = 999;
 
-    // ğŒ”»’è‚ğ‚·‚é‹@”\
+    // æ¡ä»¶åˆ¤å®šã‚’ã™ã‚‹æ©Ÿèƒ½
     public bool IsMatch(int w, int n, int c, int t)
     {
-        // ‘S‚Ä‚ÌğŒ‚ª”ÍˆÍ“à‚É“ü‚Á‚Ä‚¢‚é‚©H
+        // å…¨ã¦ã®æ¡ä»¶ãŒç¯„å›²å†…ã«å…¥ã£ã¦ã„ã‚‹ã‹ï¼Ÿ
         bool isWaterOk = (w >= minWater && w <= maxWater);
         bool isNatureOk = (n >= minNature && n <= maxNature);
         bool isCivOk = (c >= minCiv && c <= maxCiv);
         bool isTempOk = (t >= minTemp && t <= maxTemp);
 
-        // ‘S•”OK‚È‚ç true ‚ğ•Ô‚·
+        // å…¨éƒ¨OKãªã‚‰ true ã‚’è¿”ã™
         return isWaterOk && isNatureOk && isCivOk && isTempOk;
     }
 }
