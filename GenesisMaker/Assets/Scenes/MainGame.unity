@@ -3323,7 +3323,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.3886719, y: -236.74}
+  m_AnchoredPosition: {x: -2.3886719, y: -236.74005}
   m_SizeDelta: {x: -4.777, y: -1526.521}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &877202921
@@ -4644,6 +4644,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1374278135}
   - component: {fileID: 1374278134}
+  - component: {fileID: 1374278136}
+  - component: {fileID: 1374278137}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4717,6 +4719,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 812535061}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1374278136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374278133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc80398a0fe39341ada94991f76c4fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ripplePrefab: {fileID: 1983022103556686217, guid: b4dda4ef021f11044a2d69507e072015, type: 3}
+  canvasTransform: {fileID: 232848505}
+  targetScale: 2
+  duration: 0.4
+--- !u!114 &1374278137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374278133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c45f297294ae7c47b8ab539a8deb949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailDotPrefab: {fileID: 2507064729935603968, guid: 60396f5ba59f5c04fa6a769424b83a5b, type: 3}
+  canvasTransform: {fileID: 232848505}
+  spawnDistance: 15
+  fadeDuration: 0.5
+  delayTime: 0.15
 --- !u!1 &1426238216
 GameObject:
   m_ObjectHideFlags: 0
