@@ -37,7 +37,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Button rerollButton;
     [Header("残り回数表示用のテキスト")]
     [SerializeField] private TMPro.TextMeshProUGUI rerollText; 
-    private int rerollCount = 3;                                 
+    private int rerollCount = 3;
+    [Header("リロールボタンの画像")]
+    [SerializeField] private UnityEngine.UI.Image rerollButtonImage;
+    [Header("使用不可時のスプライト")]
+    [SerializeField] private Sprite rerollDisabledSprite;
+
+    //記憶しとく用の変数
+    private Sprite rerollNormalSprite;
 
     //システムコマンド
     [Header("三つあるボタンをアタッチ")]
@@ -103,6 +110,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        //最初についてるリロールの画像を通常時として記憶させる
+        if (rerollButtonImage!=null)
+        {
+            rerollNormalSprite=rerollButtonImage.sprite;
+        }
+
         UpdateUI();
 
         // ゲーム開始時にリロール回数を3にして、UIを更新する
@@ -258,10 +271,16 @@ public class GameManager : MonoBehaviour
             rerollText.text = "引き直し: " + rerollCount + "回";
         }
 
-        if (rerollButton != null)
+        if (rerollButton != null && rerollButtonImage != null)
         {
+            // 回数が残っているかどうかの判定
+            bool canReroll = (rerollCount > 0);
+
             // 0回になったらボタンを押せなくする
-            rerollButton.interactable = (rerollCount > 0);
+            rerollButton.interactable = canReroll;
+
+            //回数があれば記憶した通常画像、0回なら黒い画像にする
+            rerollButtonImage.sprite = canReroll ? rerollNormalSprite : rerollDisabledSprite;
         }
     }
 

@@ -62,7 +62,7 @@ public class CommandButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         isPressing = false;
         // 大きさを元に戻す
-        transform.DOScale(2f, 0.1f); 
+        transform.DOScale(3f, 0.1f); 
 
         if (isLongPress)
         {
@@ -97,6 +97,6 @@ public class CommandButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         //サイズをゼロに
         transform.localScale = Vector3.zero;
         //0.5秒にかけてサイズを１に戻す（弾力を表現）
-        transform.DOScale(2f, 0.5f).SetEase(Ease.OutBack);
+        transform.DOScale(3f, 0.5f).SetEase(Ease.OutBack);
     }
 }
