@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     [Header("リロールボタン")]
     [SerializeField] private UnityEngine.UI.Button rerollButton;
     [Header("残り回数表示用のテキスト")]
-    [SerializeField] private TMPro.TextMeshProUGUI rerollText; 
+    [SerializeField] private TMPro.TextMeshProUGUI rerollText;
     private int rerollCount = 3;
     [Header("リロールボタンの画像")]
     [SerializeField] private UnityEngine.UI.Image rerollButtonImage;
@@ -56,14 +56,14 @@ public class GameManager : MonoBehaviour
     [Header("確認ポップアップUI")]
     [SerializeField] private GameObject confirmPopupPanel;
     [Header("「〇〇を使いますか？」のテキスト")]
-    [SerializeField] private TextMeshProUGUI confirmTitleText;  
+    [SerializeField] private TextMeshProUGUI confirmTitleText;
     [Header("ステータス表示テキスト")]
     [SerializeField] private TextMeshProUGUI confirmStatusText;
 
     [Header("ステータスを表示するパネル")]
     [SerializeField] private GameObject statusInfoPanel;
     [Header("ステータスのテキスト")]
-    [SerializeField] private TextMeshProUGUI statusInfoText;  
+    [SerializeField] private TextMeshProUGUI statusInfoText;
 
     // 選んだコマンドを一時的に覚えておくための変数
     private CommandData pendingCommand;
@@ -72,16 +72,16 @@ public class GameManager : MonoBehaviour
     [Header("保留したコマンドを入れておく箱")]
     public List<CommandData> holdCommands = new List<CommandData>();
     [Header("全体のパネル")]
-    [SerializeField] private GameObject holdViewPanel;       
+    [SerializeField] private GameObject holdViewPanel;
     [Header("タイトルテキスト")]
-    [SerializeField] private TextMeshProUGUI holdTitleText;   
+    [SerializeField] private TextMeshProUGUI holdTitleText;
     [Header("ステータス表示テキスト")]
-    [SerializeField] private TextMeshProUGUI holdStatusText;  
+    [SerializeField] private TextMeshProUGUI holdStatusText;
     [Header("ページ数テキスト")]
     [SerializeField] private TextMeshProUGUI holdPageText;
 
     // 今見ている保留コマンドの番号
-    private int currentHoldIndex = 0; 
+    private int currentHoldIndex = 0;
 
     //リザルト用のUI
     [Header("Panel_Resultをアタッチ")]
@@ -111,9 +111,9 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //最初についてるリロールの画像を通常時として記憶させる
-        if (rerollButtonImage!=null)
+        if (rerollButtonImage != null)
         {
-            rerollNormalSprite=rerollButtonImage.sprite;
+            rerollNormalSprite = rerollButtonImage.sprite;
         }
 
         UpdateUI();
@@ -249,8 +249,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnRerollButtonClicked()
     {
+        // SE
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+        }
+
         //カウントがまだあるなら
-        if (rerollCount>0)
+        if (rerollCount > 0)
         {
             //カウントを減らす
             rerollCount--;
@@ -310,15 +316,21 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnConfirmYes()
     {
+        // SE
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+        }
+
         // ポップアップを閉じる
-        confirmPopupPanel.SetActive(false); 
+        confirmPopupPanel.SetActive(false);
 
         if (pendingCommand != null)
         {
             //コマンドを発動させる
             ExecuteCommand(pendingCommand);
             // 保存しておいたものを初期化
-            pendingCommand = null;         
+            pendingCommand = null;
         }
     }
 
@@ -327,7 +339,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OnConfirmClose()
     {
-        confirmPopupPanel.SetActive(false); 
+        // SE
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+        }
+
+        confirmPopupPanel.SetActive(false);
         pendingCommand = null;
     }
 
@@ -342,11 +360,16 @@ public class GameManager : MonoBehaviour
             Debug.Log("<color=red>保留枠がいっぱいです！（最大3つまで）</color>");
             return;
         }
+        // SE
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+        }
         Debug.Log("<color=yellow>保留しました!");
         confirmPopupPanel.SetActive(false);
 
         //保存用の変数があれば
-        if (pendingCommand!=null)
+        if (pendingCommand != null)
         {
             holdCommands.Add(pendingCommand);
 
@@ -374,6 +397,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void OpenHoldView()
     {
+        // SE
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+        }
+
         currentHoldIndex = 0;
         UpdateHoldView();
 
@@ -389,7 +418,7 @@ public class GameManager : MonoBehaviour
         if (holdCommands.Count == 0)
         {
             if (holdTitleText != null) holdTitleText.text = "保留しているコマンドはありません";
-            if (holdStatusText != null) holdStatusText.text = ""; 
+            if (holdStatusText != null) holdStatusText.text = "";
             if (holdPageText != null) holdPageText.text = "0 / 0";
             return;
         }
@@ -406,6 +435,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void CloseHoldView()
     {
+        // SE
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+        }
+
         if (holdViewPanel != null) holdViewPanel.SetActive(false);
     }
 
@@ -415,6 +450,12 @@ public class GameManager : MonoBehaviour
     public void UseHoldCommand()
     {
         if (holdCommands.Count == 0) return;
+
+        // SE
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySE(AudioManager.Instance.seButton);
+        }
 
         CommandData dataToUse = holdCommands[currentHoldIndex]; // 今表示しているデータを取得
         holdCommands.RemoveAt(currentHoldIndex); // リストから消す
