@@ -3138,6 +3138,7 @@ MonoBehaviour:
   seButton: {fileID: 8300000, guid: 539c966e78b44114d920ccdf0786bff9, type: 3}
   seScoreUp: {fileID: 8300000, guid: 70c6771956daea0469e9928af311ad3e, type: 3}
   seResult: {fileID: 0}
+  seTyping: {fileID: 8300000, guid: 4e1a48f92c6f28b40aaa42518a55b88d, type: 3}
 --- !u!1 &807265428
 GameObject:
   m_ObjectHideFlags: 0

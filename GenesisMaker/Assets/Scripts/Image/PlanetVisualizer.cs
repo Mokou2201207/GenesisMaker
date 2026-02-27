@@ -123,8 +123,15 @@ public class PlanetVisualizer : MonoBehaviour
             foreach (char c in textToType.ToCharArray())
             {
                 chatText.text += c;
-                // 指定したスピード分待つ
-                yield return new WaitForSeconds(typeSpeed); 
+
+                //コメント中SEを再生
+                if (AudioManager.Instance != null && c != ' ' && c != '　')
+                {
+                    AudioManager.Instance.PlaySE(AudioManager.Instance.seTyping);
+                }
+
+                // 指定したスピード分待つ
+                yield return new WaitForSeconds(typeSpeed);
             }
         }
 

@@ -20,6 +20,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip seScoreUp; 
     [Header("Œ‹‰Ê”­•\‚Ì‰¹")]
     public AudioClip seResult;
+    [Header("ƒRƒƒ“ƒg‚Ì‰¹")]
+    public AudioClip seTyping;
 
     void Awake()
     {
